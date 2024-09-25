@@ -33,7 +33,7 @@ export default function App() {
   const select = useCallback((id) => {
     setSelectedId(id)
   }, [])
-
+  
   const getData = async () => {
     try {
       const value = await Asyncstorage.getItem(STORAGE_KEY)
@@ -58,7 +58,8 @@ export default function App() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Text style={styles.title}>Shopping List</Text>
+      <Text style={styles.title}>Todo list</Text>
+      <Add addItem={add} />
       <FlatList
         data={data}
         keyExtractor={(item) => item.id}
@@ -72,7 +73,6 @@ export default function App() {
             setData={setData}
             />)}
         />
-      <Add addItem={add} />
     </SafeAreaView>
   )
 }
@@ -83,22 +83,13 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     justifyContent: 'center',
-    paddingLeft: 8,
-    paddingRight: 8,
-  },
-  rowContainer: {
-    flex: 1,
-    flexDirection: 'row',
-    marginTop: 5,
-    marginBottom: 5,
-    borderWidth: 1,
-    borderBottomColor: '#ccc',
-    borderBottomLeftRadius: 5,
-    borderTopLeftRadius: 5,
+    paddingLeft: 16,
+    paddingRight: 16,
   },
   title: {
+    textAlign: 'center',
     fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 16,
+    marginBottom: 8,
+    marginTop: 8,
   },
 })
