@@ -7,7 +7,8 @@ export default function Add({ addToDo }) {
 
   const save = () => {
     if (name.trim() !== '') {
-      addToDo(name) 
+      addToDo(name)
+      setName('') 
     }
   }
 
