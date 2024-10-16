@@ -21,7 +21,7 @@ export default function Add({ addToDo }) {
         onChangeText={setName}
         placeholder="Add new task..."
       />
-      <Pressable onPress={save}>
+      <Pressable onPress={() => save()}>
         <Text style={styles.button}>Save</Text>
       </Pressable>
     </View>
