@@ -37,7 +37,6 @@ export default function App() {
     })
   }
 
-  // Function to delete a todo
   const deleteTodo = (id) => {
     dispatch({
       type: 'DELETE_TODO',
