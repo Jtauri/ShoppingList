@@ -4,4 +4,4 @@ Todo List is a simple app that enables users to create and manage a list of task
 
 ## Features
 - Create a list of tasks.
-- Mark tasks as done or undone.
+- Delete tasks.
