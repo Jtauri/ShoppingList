@@ -1,78 +1,61 @@
 import { StatusBar } from 'expo-status-bar'
 import { FlatList, SafeAreaView, StyleSheet, Text } from 'react-native'
 import Constants from 'expo-constants'
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useReducer } from 'react'
 import Row from './components/Row'
 import uuid from 'react-native-uuid'
 import Add from './components/Add'
-import Asyncstorage from '@react-native-async-storage/async-storage'
 
-const STORAGE_KEY = '@items_key'
+/*näitä ei kyl ennää tarvita mutta jätetään nyt tähän*/
+const initialTodos = [
+  { id: uuid.v4(), name: 'Osta maitoa'},
+  { id: uuid.v4(), name: 'Siivoa huone'},
+  { id: uuid.v4(), name: 'Käy lenkillä'},
+]
+
+const reducer = (state, action) => {
+  switch (action.type) {
+    case 'ADD_TODO':
+      return [...state, { id: action.id, name: action.name}]
+    case 'DELETE_TODO':
+      return state.filter((todo) => todo.id !== action.id)
+    default:
+      return state
+  }
+}
+
+console.log('Main komponentti')
 
 export default function App() {
-  const [data, setData] = useState([])
-  const [selectedId, setSelectedId] = useState(null)
-
-  useEffect(() => {
-    getData()
-  }, [])
-
-  useEffect(() => {
-    storeData(data)
-  }, [data])
+  const [todos, dispatch] = useReducer(reducer, initialTodos)
   
-  const add = useCallback((name) => {
-    const newItem = {
+  const addToDo = (name) => {
+    dispatch({
+      type: 'ADD_TODO',
       id: uuid.v4(),
-      name: name
-    }
-    const tempData = [...data, newItem]
-    setData(tempData)
-  }, [data])
-
-  const select = useCallback((id) => {
-    setSelectedId(id)
-  }, [])
-  
-  const getData = async () => {
-    try {
-      const value = await Asyncstorage.getItem(STORAGE_KEY)
-      const json = JSON.parse(value)
-      if (json === null) {
-        json = []
-      }
-      setData(json)
-    } catch (ex) {
-      console.error(ex)
-    }
+      name: name,
+    })
   }
 
-  const storeData = async (value) => {
-    try {
-      const json = JSON.stringify(value)
-      await Asyncstorage.setItem(STORAGE_KEY, json)
-    } catch (ex) {
-      console.error(ex)
-    }
+  // Function to delete a todo
+  const deleteTodo = (id) => {
+    dispatch({
+      type: 'DELETE_TODO',
+      id: id,
+    })
   }
 
   return (
     <SafeAreaView style={styles.container}>
       <Text style={styles.title}>Todo list</Text>
-      <Add addItem={add} />
+      {/*välitetään addToDo Add.js:lle*/}
+      <Add addToDo={addToDo} />
       <FlatList
-        data={data}
+        data={todos}
+        renderItem={({ item }) => <Row {...item} deleteTodo={deleteTodo} />}
         keyExtractor={(item) => item.id}
-        extraData={selectedId}
-        renderItem={({ item }) => (
-          <Row 
-            item={item} 
-            selectedId={selectedId}
-            select={select}
-            data={data}
-            setData={setData}
-            />)}
-        />
+      />
+      <StatusBar style="auto" />
     </SafeAreaView>
   )
 }

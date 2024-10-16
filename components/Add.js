@@ -1,15 +1,17 @@
-import { Text, View, TextInput, Button, StyleSheet, Pressable } from 'react-native'
+import { Text, View, TextInput, StyleSheet, Pressable } from 'react-native'
 import React, { useState } from 'react'
 
-export default function Add({ addItem }) {
+//addToDo tulee App.js:stä
+export default function Add({ addToDo }) {
   const [name, setName] = useState('')
 
   const save = () => {
     if (name.trim() !== '') {
-      addItem(name)
-      setName('')
+      addToDo(name) 
     }
   }
+
+  console.log('Add komponentti')
 
   return (
     <View style={styles.container}>
@@ -17,9 +19,9 @@ export default function Add({ addItem }) {
         style={styles.form}
         value={name}
         onChangeText={setName}
-        placeholder="Enter new task"
+        placeholder="Add new task..."
       />
-      <Pressable onPress={() => { save(name) }}>
+      <Pressable onPress={save}>
         <Text style={styles.button}>Save</Text>
       </Pressable>
     </View>
@@ -35,9 +37,13 @@ const styles = StyleSheet.create({
   form: {
     flex: 1,
     marginRight: 8,
-
+    padding: 8,
+    borderColor: '#ccc',
+    borderRadius: 4,
   },
   button: {
     color: '#0096FF',
+    fontSize: 16,
+    padding: 8,
   },
 })

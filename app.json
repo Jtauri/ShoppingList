@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "Flatlist",
-    "slug": "Flatlist",
+    "name": "Todolistreducer",
+    "slug": "Todolistreducer",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
