@@ -8,16 +8,20 @@ import Add from './components/Add'
 
 /*näitä ei kyl ennää tarvita mutta jätetään nyt tähän*/
 const initialTodos = [
-  { id: uuid.v4(), name: 'Osta maitoa'},
-  { id: uuid.v4(), name: 'Siivoa huone'},
-  { id: uuid.v4(), name: 'Käy lenkillä'},
+  { id: uuid.v4(), name: 'Maitoa'},
+  { id: uuid.v4(), name: 'Leipää'},
+  { id: uuid.v4(), name: 'Kahvia'},
+  { id: uuid.v4(), name: 'Suklaata'},
+  { id: uuid.v4(), name: 'Karkkia'},
+  { id: uuid.v4(), name: 'Kaljaa'},
+  { id: uuid.v4(), name: 'Viinaa'},
 ]
 
 const reducer = (state, action) => {
   switch (action.type) {
-    case 'ADD_TODO':
+    case 'ADD_ITEM':
       return [...state, { id: action.id, name: action.name}]
-    case 'DELETE_TODO':
+    case 'DELETE_ITEM':
       return state.filter((todo) => todo.id !== action.id)
     default:
       return state
@@ -31,7 +35,7 @@ export default function App() {
   
   const addToDo = (name) => {
     dispatch({
-      type: 'ADD_TODO',
+      type: 'ADD_ITEM',
       id: uuid.v4(),
       name: name,
     })
@@ -39,7 +43,7 @@ export default function App() {
 
   const deleteTodo = (id) => {
     dispatch({
-      type: 'DELETE_TODO',
+      type: 'DELETE_ITEM',
       id: id,
     })
   }
