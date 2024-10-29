@@ -1,14 +1,15 @@
-import { Text, Pressable, StyleSheet } from "react-native"
-import React from "react"
+import { Text, Pressable, StyleSheet } from 'react-native'
+import React from 'react'
 import { Ionicons } from '@expo/vector-icons'
 
-console.log('Row komponentti')
-
-
-export default function Row({ id, name, deleteTodo }) {
+export default function Row({ id, name, completed, toggleComplete, deleteTodo }) {
   return (
-    <Pressable style={styles.row}>
-      <Text style={styles.rowText}>{name}</Text>
+    <Pressable style={styles.row} onPress={() => toggleComplete(id)}>
+      <Text
+        style={[styles.rowText, completed && styles.completedText]}
+      >
+        {name}
+      </Text>
       <Ionicons name="trash" size={24} onPress={() => deleteTodo(id)} />
     </Pressable>
   )
@@ -27,4 +28,9 @@ const styles = StyleSheet.create({
   rowText: {
     fontSize: 16,
   },
+  completedText: {
+    textDecorationLine: 'line-through',
+    color: '#888',
+  },
 })
+

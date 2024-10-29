@@ -1,14 +1,25 @@
-import { Text, View, TextInput, StyleSheet, Pressable } from 'react-native'
 import React, { useState } from 'react'
+import { TextInput, Button, View, StyleSheet, Keyboard } from 'react-native'
+import uuid from 'react-native-uuid'
+import { Pressable, Text } from 'react-native'
 
-//addToDo tulee App.js:stä
-export default function Add({ addToDo }) {
+
+export default function Add({ dispatch, todos }) {
   const [name, setName] = useState('')
 
+  const addToDo = (name) => {
+    dispatch({
+      type: 'ADD_ITEM',
+      id: uuid.v4(),
+      name: name,
+    })
+  }
+
   const save = () => {
-    if (name.trim() !== '') {
+    if (name.trim()) {
       addToDo(name)
-      setName('') 
+      setName('')
+      Keyboard.dismiss()
     }
   }
 
@@ -21,6 +32,7 @@ export default function Add({ addToDo }) {
         value={name}
         onChangeText={setName}
         placeholder="Add new task..."
+        onSubmitEditing={() => save()}
       />
       <Pressable onPress={() => save()}>
         <Text style={styles.button}>Save</Text>
