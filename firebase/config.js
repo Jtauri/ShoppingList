@@ -3,7 +3,14 @@ import { getFirestore, collection, addDoc, serverTimestamp, query, onSnapshot, o
 import { firebaseConfig } from '../apikeys'
 
 
-//console.log('firebaseConfig', firebaseConfig)
+//tarkistetaan että firebaseConfig on määritelty ja että siinä on ainakin apiKey
+
+if (firebaseConfig === undefined) {
+    throw new Error('firebaseConfig is not defined')
+}
+if (firebaseConfig.apiKey === undefined || firebaseConfig.apiKey === '') {
+    throw new Error('firebaseConfig.apiKey is not defined or empty')
+}
 
 initializeApp(firebaseConfig)
 
