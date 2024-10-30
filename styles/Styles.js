@@ -1,4 +1,3 @@
-// ./styles/Styles.js
 import { StyleSheet } from 'react-native'
 
 export default StyleSheet.create({
@@ -7,7 +6,8 @@ export default StyleSheet.create({
     backgroundColor: '#fff',
     justifyContent: 'flex-start',
     margin: 8,
-    paddingTop: 16,
+    paddingTop: 30,
+    alignItems: 'center',
   },
   form: {
     flexDirection: 'row',
@@ -37,16 +37,47 @@ export default StyleSheet.create({
   date: {
     fontSize: 10,
   },
-/*
-    form: {
+  button: {
+    color: '#0096FF',
+    fontSize: 16,
+    padding: 8,
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 16,
+  },
+  row: {
+    width: '100%',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    padding: 10,
+    backgroundColor: '#fff',
+    borderBottomWidth: 1,
+    borderColor: '#ccc',
+  },
+  rowText: {
+    fontSize: 16,
+  },
+  completedText: {
+    textDecorationLine: 'line-through',
+    color: '#888',
+  },
+  savecontainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: 16,
+  },
+  saveform: {
     flex: 1,
     marginRight: 8,
     padding: 8,
     borderColor: '#ccc',
+    borderWidth: 1,
     borderRadius: 4,
   },
-*/
-  button: {
+  savebutton: {
     color: '#0096FF',
     fontSize: 16,
     padding: 8,

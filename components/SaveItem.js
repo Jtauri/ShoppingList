@@ -1,35 +1,40 @@
 import React, { useState } from 'react'
-import { View, TextInput, Button } from 'react-native'
+import { TextInput, View, StyleSheet, Keyboard, Pressable, Text } from 'react-native'
 import { addDoc, collection, serverTimestamp } from 'firebase/firestore'
-import { firestore, MESSAGES } from '../firebase/config'
+import { firestore, SHOPPINGITEMS } from '../firebase/config'
 import styles from '../styles/Styles'
 
-
-
 export default function SaveItem() {
+  const [newItem, setNewItem] = useState('')
 
-    const [newMessage, setNewMessage] = useState('')
+  const save = async () => {
+    if (newItem.trim()) {
+      try {
+        await addDoc(collection(firestore, SHOPPINGITEMS), {
+          name: newItem.trim(),
+          created: serverTimestamp(),
 
-    const save = async () => {
-        const docref = await addDoc(collection(firestore, MESSAGES), {
-            text: newMessage.trim(),
-            created: serverTimestamp(),
-        }).catch(error => console.error('Error adding document: ', error))
-        setNewMessage('')
+        })
+        setNewItem('') // Clear input
+        Keyboard.dismiss() // Dismiss keyboard
+      } catch (error) {
+        console.error('Error adding document: ', error)
+      }
     }
+  }
 
-
-    return (
-        <View style={styles.form}>
-            <TextInput
-                style={styles.input}
-                placeholder='Send a message...'
-                value={newMessage}
-                onChangeText={text => setNewMessage(text)}
-                multiline={true}
-                numberOfLines={2}
-            />
-            <Button title='Save' onPress={() => save()} />
-        </View>
-    )
+  return (
+    <View style={styles.savecontainer}>
+      <TextInput
+        style={styles.saveform}
+        placeholder="Add new task..."
+        value={newItem}
+        onChangeText={setNewItem}
+        onSubmitEditing={save}
+      />
+      <Pressable onPress={save}>
+        <Text style={styles.savebutton}>Save</Text>
+      </Pressable>
+    </View>
+  )
 }
