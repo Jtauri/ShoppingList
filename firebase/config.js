@@ -1,6 +1,9 @@
 import { initializeApp } from 'firebase/app'
 import { getFirestore, collection, addDoc, serverTimestamp, query, onSnapshot, orderBy } from 'firebase/firestore'
-import { firebaseConfig } from './apikeys'
+import { firebaseConfig } from '../apikeys'
+
+
+//console.log('firebaseConfig', firebaseConfig)
 
 initializeApp(firebaseConfig)
 
@@ -13,7 +16,6 @@ export {
     collection, 
     addDoc,
     serverTimestamp, 
-    MESSAGES,
     query,
     onSnapshot,
     orderBy,
