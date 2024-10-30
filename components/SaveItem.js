@@ -15,8 +15,8 @@ export default function SaveItem() {
           created: serverTimestamp(),
 
         })
-        setNewItem('') // Clear input
-        Keyboard.dismiss() // Dismiss keyboard
+        setNewItem('')
+        //Keyboard.dismiss()
       } catch (error) {
         console.error('Error adding document: ', error)
       }
