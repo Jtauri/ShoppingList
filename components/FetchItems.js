@@ -26,6 +26,7 @@ export default function FetchItems() {
   const deleteItem = async (id) => {
     try {
       await deleteDoc(doc(firestore, SHOPPINGITEMS, id))
+      console.log('deleting')
     } catch (error) {
       console.error("Error deleting document: ", error)
     }
@@ -37,6 +38,7 @@ export default function FetchItems() {
       await updateDoc(doc(firestore, SHOPPINGITEMS, id), {
         completed: !completed,
       })
+      console.log('toggling')
     } catch (error) {
       console.error("Error updating document: ", error)
     }
@@ -48,7 +50,7 @@ export default function FetchItems() {
       renderItem={({ item }) => (
         <Row
           {...item}
-          deleteTodo={() => deleteItem(item.id)}
+          deleteItem={() => deleteItem(item.id)}
           toggleComplete={() => toggleComplete(item.id, item.completed)}
         />
       )}
