@@ -1,7 +1,10 @@
-# Todo List
+# Shopping List
 
-Todo List is a simple app that enables users to create and manage a list of tasks.
+Exercise. Shoppinglist with Firebase
+Implement shopping list application, that displays list of items. User can add or remove
+items from the list. Data is save using Firebase and Firestore database.
 
 ## Features
-- Create a list of tasks.
-- Delete tasks.
+- Create a list of items.
+- Delete items.
+- Cross in/out items.
